@@ -1,0 +1,5 @@
+error.png
+fastqc_icon.png
+sugar_icon.png
+tick.png
+warning.png

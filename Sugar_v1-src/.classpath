@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="outbin/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="jbzip2-0.9.jar"/>
+	<classpathentry kind="lib" path="sam-1.97.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="args4j-2.0.23.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

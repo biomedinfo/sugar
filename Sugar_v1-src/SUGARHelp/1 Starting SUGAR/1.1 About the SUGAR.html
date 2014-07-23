@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>About the SUGAR</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>About the SUGAR (<b><u>su</b></u>btile-based <b><u>G</b></u>UI-<b><u>a</b></u>ssisted <b><u>r</b></u>efiner)</h1>
+<p>The SUGAR is a GUI-based software to perform a detailed quality evaluation and cleaning of the Illumina high throughput sequencing data. It generates heatmap plots and line graphs of base-calling quality value (QV), read density, and mapping quality (MapQ; optional) score of sequence reads considering structures of the Illumina flowcells. Based on the results of the quality assessments by the SUGAR, the users can conduct both manual and automated data cleaning using GUI-based operations.
+</p>
+<p><img src="sugar_title.png" alt="Sugar Title"></img></p>
+<p>Current version of the SUGAR supports flowcells of the HiSeq2500 High Output mode (HCS 2.0.05), Rapid Run mode (HCS 2.0.x), and MiSeq v2 (Flow Cell v2). The SUGAR is developed initially as an extended version of the open source quality-control software FastQC (URL: <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">http://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a>), and is freely available under GNU GPL v3 license at the URL <a href="">http://nagasakilab.csml.org/xxx</a>.
+</p>
+
+<p>
+<h3>SUGAR hardware requirements</h3>
+<ul>
+<li>Required memory size is >1GB. In a default setting operation, one thread for an analysis of single data needs 250 MB</li>
+
+<li>Required memory size increases in square of the matrix_size parameter</li>
+
+<li>Required memory size grows linearly with the number of tile in the input file and with the max read length</li>
+
+<li>Required memory size usage does NOT grow with the input file size</li>
+
+<li>CPU time grows linearly with the number of sequence reads or SAM/BAM records in the input file</li>
+
+<li>CPU time depends on the selected task; <i>e.g.</i>, "clear_lowQ_clusters" option increases the execution time by 50-100%</li>
+</ul></p>
+
+<p>
+<h3>Citation</h3>
+Yukuto Sato, Kaname Kojima, Naoki Nariai, Yumi Yamaguchi-Kabata, Mamoru Takahashi, Takahiro Mimori and Masao Nagasaki. <br>
+SUGAR: high-resolution refinement of high-throughput sequencing reads considering their spatial organization in flowcells.<br>
+<i>Submitted</i>.
+
+<p><img src="Sugar_icon_l100.png" alt="Sugar_icon_L" align="right"></p>
+
+<p>
+<h3>Sugar Logo Design</h3>
+Toshiya Hatanaka
+
+<p>
+<b>Last revision of the software and help file: October 14, 2013</b><br>
+</p>
+
+</body>
+
+</html>
+ 

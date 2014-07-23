@@ -1,0 +1,18 @@
+2.1 Tiles Tree.html
+2.2 Quality Heatmaps.html
+2.3 Read Density Heatmaps.html
+2.4 Average Quality Heatmaps.html
+2.5 Mapping Quality Heatmaps.html
+2.6 Subtile Quality Ranking.html
+average_quality_heatmaps_per_tile_and_base_position_details_s.png
+average_quality_heatmaps_per_tile_and_base_position_mixed_s.png
+average_quality_heatmaps_per_tile_and_base_position_s.png
+density_heatmaps_per_tile_details_s.png
+density_heatmaps_per_tile_s.png
+flowcell_lane_combo_box.png
+MapQs.png
+quality_heatmaps_per_tile_and_base_position_details_s.png
+quality_heatmaps_per_tile_and_base_position_mixed_s.png
+quality_heatmaps_per_tile_and_base_position_s.png
+subtile_quality_ranking.png
+tile_tree.png

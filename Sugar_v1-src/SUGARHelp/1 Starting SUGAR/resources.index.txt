@@ -1,0 +1,9 @@
+1.1 About the SUGAR.html
+1.2 Loading Data.html
+1.3 Browsing the Results.html
+fileopen1.png
+fileopen2.png
+options.png
+results_view.png
+Sugar_icon_l100.png
+sugar_title.png

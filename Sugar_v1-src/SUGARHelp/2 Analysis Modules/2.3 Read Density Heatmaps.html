@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Read Density Heatmaps</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>Read Density Heatmaps</h1>
+
+<p>
+This module generates a heatmap to show an overall density of sequencing reads across the all tiles/subtiles on the flowcell. 
+</p>
+<p><img src="density_heatmaps_per_tile_s.png" alt="Density Heatmap Table"></img></p>
+
+<ul>
+<li>Left- and right-sided heatmap show the tiles on top and bottom sides of the given lane of the flowcell, respectively</li>
+<li>Holding the mouse over a selected tile on the heatmap displays its tile numer/name and read density as a popup information</li>
+<li>The dropdown menu at the bottom of the screen enables to select the other lane of the flowcell included in the data analyzed</li>
+</ul>
+
+<h2>Heatmap details</h2> 
+<p>
+Mouse clicking on each tile on the heatmap opens popup view of the selected tile and its neighboring tiles (see below). This window allows more detailed evaluation of the read density distribution of the selected tile and closer regions. The paint scale legend is located beside this heatmap chart. 
+</p>
+<p><img src="density_heatmaps_per_tile_details_s.png" alt="Density Heatmap Details"></img></p>
+
+<p>
+The density heatmap displays the number of reads of the given subtiles (its respective range in  X-Y coodinates is indicated) represented as the heatmap point. The density heatmap is colored by a 'temperature' paint scale of the Java implementation with the following color boundaries:
+</p>
+<ul>
+<li>Blue color: lowest value - 0</li>
+<li>Red color: highest value corresponding to the maximum number of reads for a given region in all heatmaps</li>
+</ul>
+
+<h2>Mixed Results tab</h2> 
+
+<p>
+This screen shows the heatmap of average density between  the top and bottom tiles of the lane. The coloring scheme is the same with the above.
+</p>
+
+</body>
+</html>

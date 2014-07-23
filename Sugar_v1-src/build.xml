@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build-jar" name="sugar">
+    <property environment="env"/>
+
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+	<property name="encoding" value="UTF-8"/>
+    <property name="classes.dir" value="outbin"/>
+    <property name="old.dist.dir" value="dist-old"/>
+	
+    <property name="jar.name" value="Sugar.jar"/>    
+    <property name="fastqc-ext.jar.name" value="fastqc-ext.jar"/>    
+
+    <dirname property="project.basedir" file="${ant.file}"/>
+	
+    <path id="compile.classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="args4j-2.0.23.jar"/>
+        <pathelement location="sam-1.97.jar"/>
+        <pathelement location="jbzip2-0.9.jar"/>
+        <pathelement location="jcommon-1.0.17.jar"/>
+        <pathelement location="jfreechart-1.0.14.jar"/>
+        <pathelement location="json-simple-1.1.1.jar"/>
+    </path>
+	
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <copy includeemptydirs="false" todir="${classes.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="." includes="uk/**/*, org/**/*" excludes="**/*.launch, **/*.java"/>
+            <fileset dir="." includes="Help/**/*, SUGARHelp/**/*, Templates/**/*, Contaminants/**/*, fastqc_icon.ico"/>
+        </copy>
+    </target>
+	
+    <target name="create-old-dist-dir" depends="build" description="Creates the same distribution as the original FASTQC. Not recommended">
+        <delete dir="${old.dist.dir}"/>
+        <mkdir dir="${old.dist.dir}"/>
+        <copy includeemptydirs="false" todir="${old.dist.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="." includes="*.jar, *.txt, *.sh, *.bat, sugar*, fastqc*, Contaminants/**/*"/>
+        </copy>
+		
+        <copy includeemptydirs="false" todir="${old.dist.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="${classes.dir}"/>
+        </copy>		
+    </target>
+
+
+    <target name="clean" description="Clean project binaries">
+        <delete dir="${classes.dir}"/>
+        <delete file="${project.basedir}/${jar.name}"/>
+        <delete file="${project.basedir}/${fastqc-ext.jar.name}"/>
+    </target>
+	
+    <target depends="init" name="build" description="Build project binaries">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" destdir="${classes.dir}" source="${source}" target="${target}" encoding="${encoding}" includeantruntime="no">
+            <src path="."/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+	
+	
+    <target depends="build" name="build-jar" description="Incremental Build. Output dir: ${project.basedir}">
+        <echo message="BUILD PROJECT ${ant.project.name}: ${ant.file}"/>
+        <!--jar jarfile="${project.basedir}/${jar.name}" basedir="${classes.dir}" compress="true" /-->
+		
+		<jar destfile="${project.basedir}/${jar.name}">
+		    <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="org.csml.tommo.sugar.SugarApplication"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ args4j-2.0.23.jar sam-1.97.jar jbzip2-0.9.jar jcommon-1.0.17.jar jfreechart-1.0.14.jar json-simple-1.1.1.jar"/>
+            </manifest>
+            <zipfileset src="${project.basedir}/jar-in-jar-loader.zip"/>
+            <fileset dir="${classes.dir}"/>
+            <zipfileset dir="${project.basedir}" includes="args4j-2.0.23.jar"/>
+            <zipfileset dir="${project.basedir}" includes="sam-1.97.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jbzip2-0.9.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jcommon-1.0.17.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jfreechart-1.0.14.jar"/>
+            <zipfileset dir="${project.basedir}" includes="json-simple-1.1.1.jar"/>
+		</jar>
+		
+		<jar destfile="${project.basedir}/${fastqc-ext.jar.name}">
+		    <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="uk.ac.babraham.FastQC.FastQCApplication"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ args4j-2.0.23.jar sam-1.97.jar jbzip2-0.9.jar jcommon-1.0.17.jar jfreechart-1.0.14.jar json-simple-1.1.1.jar"/>
+            </manifest>
+            <zipfileset src="${project.basedir}/jar-in-jar-loader.zip"/>
+            <fileset dir="${classes.dir}"/>
+            <zipfileset dir="${project.basedir}" includes="args4j-2.0.23.jar"/>
+            <zipfileset dir="${project.basedir}" includes="sam-1.97.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jbzip2-0.9.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jcommon-1.0.17.jar"/>
+            <zipfileset dir="${project.basedir}" includes="jfreechart-1.0.14.jar"/>
+            <zipfileset dir="${project.basedir}" includes="json-simple-1.1.1.jar"/>
+		</jar>
+    </target>
+
+    <target name="dist" depends="clean,build-jar" description="Clean and Build." />			
+
+	
+	<target name="svnUpdate"
+	       description="Update SVN. Update local files to top copy of Subversion trunk HEAD">
+	    <exec dir="." executable="svn">
+  			<arg line="update"/>
+		</exec>
+	</target>
+		
+	<target name="svnRevert"
+	       description="Revert SVN. Replace all local files with Subversion trunk HEAD">
+	    <exec dir="." executable="svn">
+  			<arg line="revert -R ."/>
+		</exec>
+	</target>
+</project>

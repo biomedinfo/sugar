@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Quality Heatmaps</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>Quality Heatmaps</h1>
+
+<p>This module generates heatmap panels to show the overall sequence read quality across all tiles and base positions of the data loaded to the SUGAR. The coloring of the heatmap is based on the proportion of low-quality reads within each subtiles.
+</p>
+<p><img src="quality_heatmaps_per_tile_and_base_position_s.png" alt="Quality Heatmap Table"></img></p>
+
+<ul>
+<li>The tiles are displayed in columns and located along the horizontal axis, reflecting the actual organization of the tiles on the flowcells</li>
+<li>The left- and right-sided heatmap panels show 'top' and 'bottom' sides of the lane, respectively</li>
+<li>Nucleotide base positions of the reads are displayed in vertical rows and located along the Y-axis</li>
+<li>Holding the mouse over each tile on the heatmap displays its tile id and base position</li>
+<li>Flowcell-lane combo box appearing at the bottom of the GUI window allows to chose different flowcell lanes contained in the analyzed data</li>
+</ul>
+
+<p><img src="flowcell_lane_combo_box.png" alt="flowcell_lane_combo_box"></img></p>
+
+<h2>Heatmap details</h2> 
+
+<p>
+Mouse clicking on each tile on the heatmap opens popup view of the selected tile and its neighboring tiles (see below). This window allows more detailed evaluation of the selected tile and closer regions. The legend of the coloring is shown beside this detaied heatmaps.
+</p>
+
+<p>
+Coloring of the heatmap indicates proportion of low-quality reads having QV less than the given theshold value (<i>e.g.</i>, QV &lt; 30 in these example pictures) for the given XY-regions or subtiles. The QV theshold is specified and able to be changed by the option menu "Heatmap Quality Threshold" in the file opening window (see the section "Loading Data").
+</p>
+<p><img src="quality_heatmaps_per_tile_and_base_position_details_s.png" alt="Quality Heatmap Details"></img></p>
+
+<p>
+The quality heatmap is colored by a linear paint scale with the following color boundaries in the Java implementation:
+</p>
+<ul>
+<li>Red color (low-quality): 0.7 (proportion of the low-quality reads)</li>
+<li>Yellow color (high-quality): 0.0 (proportion of the low-quality reads)</li>
+<li>For values greater than 0.7, the red  color is used</li>
+</ul>
+
+<p>
+The buttons Previous/Next allow to jump to the heatmap for the previous/next base position. <br/>
+The button Start Animation displays each heatmap of the selected nucleotide position for 1 second and then jumps to the next nucleotide position.
+</p>
+
+
+<h2>Changing quality threshold</h2> 
+
+<p>
+The Quality Threshold combo-box allows users to specify or change the value of the QV threshold when a series of the threshold values are specified in a file opening operation (see the section "Loading Data"). The higher the quality threshold value, the more reads are defined as low-quality, and the more red points appear in the heatmap.
+</p>
+
+<h2>Mixed Results tab</h2> 
+
+<p>
+In this screen, the heatmaps of the top and bottom lanes/tiles are combined using the selected mix operation. This view may help to find air bubbles or the other technical problems during the sequencers run.
+</p>
+
+<p><img src="quality_heatmaps_per_tile_and_base_position_mixed_s.png" alt="Mixed Quality Heatmap Table"></img></p>
+
+<h3>Mix operations</h3> 
+
+<p>
+The mix operation can be selected from the combo-box at the top of this tab. Three different indicators can be selected for the scheme of heatmap colorings:
+</p>
+
+<ul>
+<li>Weighted average: 'AVERAGE'= weight*top+(1-weight)*bottom </li>
+<li>Difference:  'DIFF'= top-bottom </li>
+<li>Absolute difference:  'ABSOLUTE_DIFF'= |top-bottom|</li>
+</ul>
+
+<p>
+The parameter 'weight' means the mixing balance between the values from the top and bottom lanes (ranging from 0 to 1) and can be specified and changed by using the slider on the right side of the screen. This parameter is used only by the weighted average mix operation.
+</p>
+
+<p>
+The results of difference and absolute difference mix operations are colored using a 'temperature' paint scale of the Java implementation with the following color boundaries: 
+</p>
+
+<ul>
+<li>Blue color: lowest value (-0.7 and 0 in DIFF and ABSOLUTE_DIFF tabs, respectively)</li>
+<li>Red color: highest value (0.7)</li>
+</ul>
+
+<h3>Tile numeration and input file compatibility</h3> 
+<p>
+The mixed-results heatmaps can be generated for the input data having the following information:
+
+</p>
+<ul>
+<li>The tiles can be divided into top and bottom</li>
+<li>For a selected top tile the corresponding bottom tile can be determined </li>
+</ul>
+<p>
+As described the former section, the current version of the SUGAR (Oct. 2013) supports the following: 
+</p>
+<ul>
+<li>Illumina HiSeq High Output mode (HCS 2.0.05)</li>
+<li>Illumina HiSeq Rapid Run mode (HCS 2.0.x)</li>
+<li>Illumina MiSeq v2 (Flow Cell v2)</li>
+</ul>
+
+<p>
+The SUGAR attempts to automatically determine which numeration scheme was used during file loading. If the numeration scheme can not be adequately recognized, the "Mixed Results tab" view results to be empty.
+</p>
+
+</body>
+</html>

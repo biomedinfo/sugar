@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Saving Cleared Sequence File</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>Saving Cleared Sequence File</h1>
+<p>
+The SUGAR has a function to generate a "cleared" sequence file. This "data cleaning" operation deletes sequence reads or changes nucleotide bases to "N" base that are sequenced from low-quality tiles/subtiles defined by the users or automatically by the SUGAR, and produces a new sequence file without those low-quality read/base data. This function can be applied to Fastq, SAM, and BAM files (including mapped SAM/BAM). The cleared sequence file is saved in a same format with the original input file.
+</p>
+
+<p>
+The data cleaning operation is done by two steps. First, low-quality tiles or subtiles are selected by manual operation using quality-heatmap graphs mouse clicking, or automated analysis on the basis of line graphs of "Subtile quality ranking." Then, sequence reads within the selected low-quality tiles/subtiles are removed from the oridinal data file ("delete" operation). Or, all nucleotide bases within the selected low-quality base position of the tiles/subtiles are changed to "N" base from the original data file ("change" operation). The cleaned data will be saved as a new file with a new file name (see below).
+
+</p>
+<h2>Data cleaning operation details</h2>
+<p>
+Operation to generate a new "cleared" sequence file is done as followings:
+</p>
+
+<p><img src="save_cleared_seq_file.png" alt="Select LowQ Clusters"></img></p>
+<ol>
+<li>Choose and activate the sequence data tab to apply the data cleaning operation</li>
+<li>Select "File &gt; Save Cleared Sequence File" from the main menu</li>
+<li>A dialog of "Save Cleared Sequence File" is displayed with a proposed filename of the output file (see above)
+<ul>By default, the name of new "cleared" sequence file has the suffix ".cleared" added to the end of the original file name. Users can also specify a new name</ul>
+<li>Specify the clearing operation "delete" or "change"
+	<ul>In the "Save Cleared Sequence File" dialog, users can choose two options: operation 'delete' removes selected sequences, while operation 'change' changes selected bases to 'N' (see above)</ul>
+<li>Choose the method to specify low-quality tiles/subtiles
+	<ul>Users can choose following operations:
+		<ul><li>AUTO: This operation automatically selects the low-quality subtiles without GUI-based interactive operation. The low-quality spots are red colored in the Quality Heatmap plots, corresponding to subtiles with low-quality read ratio of greater than 0.7. The QV threshold was defined in the file opening operation (see the section "Loading Data")</li>
+	<li>USER: This operation defines the low-quality tiles/subtiles to be cleared by an interactive GUI-based operation using heatmap or line graph plots. For details, see the sections below</li>
+	<li>FILE: This operation is useful when the users will apply a tile/subtile selection state to the other flowcells or data sets. It loads the tile/subtile coordinate from an external file. The file is saved when the clear operation is executed</li>
+
+</ul></ul></li>
+
+<li>Click SAVE button to proceed to data cleaning with selected operation (AUTO, USER, or FILE)</li>
+</ol>
+
+<p>
+The data cleaning operation may take time particularly in the large-sized SAM and BAM files. The required time is approximately same with the time for loading original sequence file when the cache function is not applied. The cleared sequence file can also be saved by running the SUGAR in non-interactive command line mode. 
+</p>
+
+<h2>Selecting low-quality tiles/subtiles for data cleaning</h2>
+ <p>To select the low-quality tiles/subtiles based on the quality heatmaps and line graphs via GUI, choose the option 'user' in the "Save Cleared Sequence File" dialog and click the SAVE button. It opens the" Select LowQ Clusters" dialog box shown below.
+</p>
+
+<h3>Manual tile/subtile selection and data cleaning</h3>
+
+<p><img src="select_bad_clusters_s.png" alt="Select LowQ Clusters"></img></p>
+
+<p>
+This window allows users to individually select the tiles and subtiles to be cleared with GUI guide and mouse clicking. 
+</p>
+<p>
+<ul>
+<li>To select a whole tile, click it with the left mouse button</li>
+<ul>
+<li>Black colored check-marks are displayed on a fully selected tile, indicating that all subtiles and sequence reads within the tile are selected</li>
+<li>To cancel the whole tile selection, click it with the right mouse button</li>
+<li>Mulitple tiles can be selected and canceled by dragging the mouse over the prefered tiles with the left and right mouse button down, respectively </li>
+</ul>
+<li>To select subtiles within the tile (subtile level selection), click the tile with pressing the CTRL (control) key to open the detailed tile/subtile heatmap popup window (shown below)
+<ul>
+<li>Subtiles in the "Tile Details" popup window can be selected by the same select/cancel operations described above.</li>
+<li>Green colored checkmarks are displayed on a selected subtile in the "Tile Details" popup window</li>
+<li>To finish the subtile-selection operation, close the popup window</li>
+<li>Green colored checkmarks are displayed on a partially selected tile in the tile-heatmap screenw (shown above), indicating that a part of subtiles within the tile are selected</li>
+</ul>
+<p><img src="select_bad_clusters_details.png" alt="Select LowQ Clusters"></img></p>
+</ul>
+
+<p>
+In the 'delete' operation mode (see "Data cleaning operation details" in this page), the tile/subtile selection is automatically applied to the all base positions of the selected tiles/subtiles. This means that the whole sequence reads in the selected tiles/subtiles will be deleted in a newly saved  "cleared" sequence file.
+</p>
+<p>A partially selected tiles (indicated by the green checkmarks) cannot be fully selected by a left mouse click. To change partial selection to full-tile selection, cancel the partial selection of the tile by right click, and then select it again by left click.
+</p>
+</ul>
+
+<h3>Automated tile/subtile selection and data cleaning</h3>
+
+<p>
+Not only the manual selection operations described above, an automated subtile-based data cleaning can be conducted by pressing the button "Select Sub-tiles by Quality" from the same "Select LowQ Clusters" dialog box (shown above). This opens a new window illustrated below to offer the automated operations. 
+</p>
+
+<p><img src="subtile_quality_ranking_s.png" alt="subtile_quality_ranking"></img></p>
+
+<p>
+In this line graph subtiles are ordered by quality indicators chosen from the dropdown menu (READ_DENSITY, AVERAGE_QUALITY, RATE_OF_LowQ_READS, and MAPPING_QUALITY; for details, see the section "Subtile quality ranking") and positioned along the X (horizontal) axis from low-quality ones on the left-side to high-quality ones on the right-side. Users can select low-quality part (indicated by red shading) of the data for automated deletion as follows:
+</p>
+<ol>
+<li>Choose a prefered quality indicator in the combo-box below the graph screen</li>
+<li>Shift the slider on the bottom of the screen to specify the cut-off quality value (red line) and remaining amount of the data (green line). The all subtiles having quality indicator values lower than the specified value here (indicated by the red shading) are selected for data cleaning</li> 
+<li>Click OK button to finish the data selection and start the data cleaning analysis for saving a new "cleared" data</li>
+</ol>
+<p>
+When the quality indicator 'RATE_OF_LowQ_READS' was selected, the value of 'Quality Threshold' shown in the combo-box at the top of the screen may play an important role. Different line graphs will be generated for the different QV threshold values. In general, the higher the QV threshold, this quality indicator (proportion of low-quality reads) is also elevated. 
+</p>
+
+<h3>Import/Export of the tile/subtile selection property</h3>
+<p>
+The "Export Selection" button enables to save the information about currently selected tiles to a disk file. The file can be imported  by the "Import Selection" button to apply the saved tile/subtile selection state to the other analyses of the same or another data file that has the same structure of tiles, subtiles (resolution), and flowcell versions.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Average Quality Heatmaps</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>Average Quality Heatmaps</h1>
+<p>
+This module generates heatmaps to show an overall view of average quality values across all tiles and base positions of the data loaded to the SUGAR.
+</p>
+<p><img src="average_quality_heatmaps_per_tile_and_base_position_s.png" alt="Average Quality Heatmap Table"></img></p>
+
+<ul>
+<li>The tiles are displayed in columns and located along the horizontal axis, reflecting the actual organization of the tiles on the flowcells</li>
+<li>The left- and right-sided heatmap panels show 'top' and 'bottom' sides of the lane, respectively</li>
+<li>Nucleotide base positions of the reads are displayed in vertical rows and located along the Y-axis</li>
+<li>A horizontal bar separates two different base positions</li>
+<li>Holding the mouse over each tile on the heatmap displays its tile id and base position</li>
+<li>Flowcell-lane combo box appearing at the bottom of the GUI window allows to chose different flowcell lanes contained in the analyzed data</li>
+</ul>
+
+<h2>Heatmap details</h2> 
+<p>
+Mouse clicking on each tile on the heatmap opens popup view of the selected tile and its neighboring tiles (see below). This window allows more detailed evaluation of the selected tile and closer regions. The legend of the coloring is shown beside this detaied heatmaps.
+</p>
+
+<p>
+Coloring of the heatmap displays the average quality of the tiles. Their respective range in X-Y coodinates is indicated this window.
+</p>
+<p><img src="average_quality_heatmaps_per_tile_and_base_position_details_s.png" alt="Average Quality Heatmap Details"></img></p>
+
+<p>
+The quality heatmap is colored by a linear paint scale with the following color boundaries in the Java implementation:
+</p>
+
+<ul>
+<li>Yellow color: average QV 50 </li>
+<li>Red color: average QV 10</li>
+<li>For values greater than 50, the yellow color is used; for values less than 10, the red color is used</li>
+</ul>
+
+<p>
+The buttons Previous/Next allow to jump to the heatmap for the previous/next base position. <br/>
+The button Start Animation displays each heatmap of the selected nucleotide position for 1 second and then jumps to the next nucleotide position.
+</p>
+
+
+To get the ability for changing the threshold, specify multiple threshold values in the File Open Options or load the same file several times with different threshold values.
+If the selected file was opened with different threshold values, then the other values will be available in the drop-down list.
+</p>
+
+
+
+<h2>Mixed Results tab</h2> 
+
+<p>
+In this screen, the heatmaps of the top and bottom lanes/tiles are combined using the selected mix operation. This view may help to find air bubbles or the other technical problems during the sequencers run.</p>
+
+<p><img src="average_quality_heatmaps_per_tile_and_base_position_mixed_s.png" alt="Mixed Average Quality Heatmap Table"></img></p>
+
+<h3>Mix operations</h3> 
+
+<p>
+The mix operation can be selected from the combo-box at the top of this tab. Three different indicators can be selected for the scheme of heatmap colorings::
+</p>
+
+<ul>
+<li>Weighted average: 'AVERAGE'= weight*top+(1-weight)*bottom </li>
+<li>Difference: 'DIFF'= top-bottom </li>
+<li>Absolute difference: 'ABSOLUTE_DIFF'= |top-bottom| </li>
+</ul>
+
+<p>
+The parameter 'weight' means the mixing balance between the values from the top and bottom lanes (ranging from 0 to 1) and can be specified and changed by using the slider on the right side of the screen. This parameter is used only by the weighted average mix operation.
+</p>
+
+<p>
+The results of difference and absolute difference mix operations are colored using a 'temperature' paint scale of the Java implementation with the following color boundaries: 
+</p>
+
+<ul>
+<li>Blue color: lowest value (-10 and 0 in DIFF and ABSOLUTE_DIFF tabs, respectively) </li>
+<li>Red color: highest value (10) </li>
+</ul>
+
+<h3>Tile numeration and input file compatibility</h3> 
+<p>
+See the section "Quality Heatmaps."
+
+</body>
+</html>

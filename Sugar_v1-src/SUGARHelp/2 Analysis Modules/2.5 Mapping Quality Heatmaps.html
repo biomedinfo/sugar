@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Mapping Quality Heatmap</title>
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+	}
+</style>
+</head>
+<body>
+<h1>Mapping Quality Heatmaps</h1>
+
+<p>This module generates heatmaps to show an overview of mapping quality (MapQ) scores across the all tiles in the flowcell. The analysis is applied for data of mapped-SAM/BAM files, in which the MapQ scores of the sequence reads are provided. 
+</p>
+
+<!--p><img src="density_heatmaps_per_tile.png" alt="Density Heatmap Table"></img></p-->
+<p>
+A series of mapping quality heatmaps shows proportion of low-MapQ reads per all reads, of which the threshold values of low-MapQ score are specified as MAPQ &lt; 5, MAPQ &lt; 15, MAPQ &lt; 25, and MAPQ &lt; 35. In addition, an average MapQ heatmap is shown at the bottom of the view.
+</p>
+
+<p><img src="MapQs.png" alt="MapQ Heatmaps"></img></p>
+
+<ul>
+<li>The tiles are displayed in columns and located along the horizontal axis, reflecting the actual organization of the tiles on the flowcells</li>
+<li>The left- and right-sided heatmap panels show 'top' and 'bottom' sides of the lane, respectively</li>
+
+<li>The corresponding MapQ tresholds are shown in the right side of each heatmap. The average MapQ heatmap is shown in the bottom (last row) </li>
+<li>Holding the mouse over each tile on the heatmap displays its tile id and base position</li>
+<li>Flowcell-lane combo box appearing at the bottom of the GUI window allows to chose different flowcell lanes contained in the analyzed data</li>
+</ul>
+
+<h2>Heatmap details</h2> 
+<p>
+Mouse clicking on each tile on the heatmap opens popup view of the selected tile and its neighboring tiles (see below). This window allows more detailed evaluation of the selected tile and closer regions. The legend of the coloring is shown beside this detaied heatmaps.</p>
+
+<p>
+The MapQ  heatmaps are colored according to the proportion of reads that show MapQ scores less than the given theshold (e.g., MAPQ &lt; 5, MAPQ &lt; 10, etc.) of the given subtile (XY-region represented by the heatmap point). The coloring is under a linear paint scale in the Java implementation with the following color boundaries.
+</p>
+
+<li>
+
+<p>
+The heatmaps of the proportion of low-MapQ reads:
+</p>
+<ul>
+<li>Blue color: lowest value (0)</li>
+<li>Red color: highest value (1)</li>
+</ul>
+
+<p>
+The heatmaps of the average MapQ:
+</p>
+<ul>
+<li>Blue color: lowest value (0)</li>
+<li>Red color: highest value (50)</li>
+</ul>
+
+<h2>Mixed Results tab</h2> 
+
+This screen shows the heatmaps of average values of the given MapQ indicators between top and bottom tiles of the lane. The coloring scheme is the same with the above. 
+</body>
+</html>

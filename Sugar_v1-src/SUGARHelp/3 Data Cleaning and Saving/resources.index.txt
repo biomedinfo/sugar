@@ -1,0 +1,7 @@
+3.1 Saving Report File.html
+3.2 Saving Cleared Sequence File.html
+save_cleared_seq_file.png
+saving_report.png
+select_bad_clusters_details.png
+select_bad_clusters_s.png
+subtile_quality_ranking_s.png

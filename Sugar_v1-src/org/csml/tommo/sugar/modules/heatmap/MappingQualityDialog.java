@@ -1,0 +1,104 @@
+/**
+ *    Copyright Masao Nagasaki
+ *    Nagasaki Lab
+ *    Laboratory of Biomedical Information Analysis,
+ *    Department of Integrative Genomics,
+ *    Tohoku Medical Megabank Organization, Tohoku University 
+ *    @since 2013
+ *
+ *    This file is part of SUGAR (Subtile-based GUI-Assisted Refiner).
+ *    SUGAR is an extension of FastQC (copyright 2010-12 Simon Andrews)
+ *
+ *    FastQC is free software; you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation; either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    FastQC is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with FastQC; if not, write to the Free Software
+ *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+package org.csml.tommo.sugar.modules.heatmap;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.List;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.csml.tommo.sugar.SugarApplication;
+import org.csml.tommo.sugar.heatmap.MappingQualityMatrix;
+import org.csml.tommo.sugar.heatmap.MappingQualityMatrixChart;
+import org.csml.tommo.sugar.modules.MappingQuality;
+import org.csml.tommo.sugar.sequence.TileCoordinates;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.renderer.PaintScale;
+
+public class MappingQualityDialog extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7755493135986780444L;
+	
+	
+	protected JPanel centerPanel;
+	protected int row;
+	protected int col;
+	protected MappingQualityTable table;
+	
+	public MappingQualityDialog(int row, int col, MappingQualityTable table){
+		super(SugarApplication.getApplication());
+		initData(row, col, table);
+				
+		List<TileCoordinates> tileCoordinateList = table.getTileCoordinateList(row, col);		
+		int colSpan = col == table.getColumnCount() - 1 ? 1 : 2;
+		int rowSpan = tileCoordinateList.size() / colSpan;
+		centerPanel = new JPanel(new GridLayout(rowSpan, colSpan));
+		setLayout(new BorderLayout());
+		rebuild();
+		add(centerPanel, BorderLayout.CENTER);
+		setLocation(400, 350);
+		setSize(250 * colSpan, 250 * rowSpan);
+	}
+
+	protected void initData(int row, int col, MappingQualityTable table) {
+		this.row = row;
+		this.col = col;
+		this.table = table;
+	}
+
+	protected void rebuild(){
+		centerPanel.removeAll();
+		List<TileCoordinates> tileCoordinateList = table.getTileCoordinateList(row, col);
+		MappingQuality mappingQuality = table.getModel().getMappingQuality();
+		PaintScale paintScale = MappingQualityCellRenderer.getAveragePaintScale();
+		for(int i=0; i<tileCoordinateList.size(); i++){
+			TileCoordinates tc = tileCoordinateList.get(i);
+			MappingQualityMatrix matrix = mappingQuality.getMeanQualityMatrix(tc);
+			
+			if (matrix != null) {
+				ChartPanel panel = MappingQualityMatrixChart.createChartPanel(matrix, paintScale);
+				panel.setToolTipText("tile=" + tc.getTile());
+				centerPanel.add(panel);
+			}
+			else{
+				centerPanel.add(new JLabel("Missing data for tile=" + tc.getTile()));
+			}
+		}
+		
+		TileCoordinates first = tileCoordinateList.get(0);
+		String windowTitle = "Average MAPQ for tile=" + first.getTile() + " and neighbors";
+		setTitle(windowTitle);
+		
+		centerPanel.revalidate();
+		centerPanel.repaint();
+	}	
+}
